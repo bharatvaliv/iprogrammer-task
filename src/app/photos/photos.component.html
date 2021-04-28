@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-3 my-1" *ngFor="let photo of photoList">
+        <div class="card mb-4 ">
+          <div class="card-body photo">
+            <img class="card-img-top" src="{{photo.thumbnailUrl}}" alt="{{photo.thumbnailUrl}}">
+            <h6 class="card-title pt-1 photo__title">{{photo.title}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted photo__id">{{photo.id}}</h6>
+            <p class="photo__url">
+              <a href="{{ photo.url }}" class="card-link mb-2">{{photo.url}}</a>
+            </p>
+            <div class="mt-2">
+              <button
+                *ngIf="!imageMap.get(photo.id)"
+                (click)="onCompare(photo)"
+                type="button"
+                class="btn btn-primary photo__compaire"
+              >
+                Compare
+              </button>
+              <button
+                *ngIf="imageMap.get(photo.id) && imageMap.get(photo.id).added"
+                (click)="onRemove(photo)"
+                type="button"
+                class="btn btn-warning photo__compaire"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto pt-2">
+        <pagination
+          *ngIf="photos"
+          [itemsPerPage]="12"
+          [totalItems]="photos.length"
+          [maxSize]="5"
+          (pageChanged)="onClickPage($event)"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 pt-5" *ngIf="compareImages.length != 0">
+    <div class="container">
+      <h3 class="text-center">Comparison Table</h3>
+      <div>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Id</th>
+              <th scope="col">URL</th>
+              <th scope="col">Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let image of compareImages">
+              <td scope="row"><img class="img-fluid image--width" [src]="image.url" [alt]="image.url"></td>
+              <td>{{ image.id }}</td>
+              <td>{{ image.url }}</td>
+              <td>{{ image.title }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
