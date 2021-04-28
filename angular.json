@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "iprogrammer-task"
+  "defaultProject": "iprogrammer-task",
+  "cli": {
+    "analytics": false
+  }
 }
